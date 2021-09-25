@@ -63,7 +63,7 @@ https://goals.zuri.chat/api/v1/goals?org_id=6145d099285e4a184020742e
 
  Descripton: Success
 
-- response body
+##### response body
 
 ```sh
 {
@@ -83,7 +83,7 @@ https://goals.zuri.chat/api/v1/goals?org_id=6145d099285e4a184020742e
 }
 ```
 
-- Response headers
+##### Response headers
 
 ```sh
  access-control-allow-origin: * 
@@ -101,7 +101,7 @@ https://goals.zuri.chat/api/v1/goals?org_id=6145d099285e4a184020742e
 
 Description: Bad request
 
-- Response body
+##### Response body
 
 ```sh
 {
@@ -109,7 +109,7 @@ Description: Bad request
 }
 ```
 
-- Response headers
+##### Response header
 
 ```sh
  connection: keep-alive 
@@ -141,7 +141,6 @@ Description: Internal service error.
 #### Description
 
 This endpoint updates a single goal for a particular organization.
-
 #### Parameters
 
 - org_id: Provide an org_id of string datatype to fetch a single goal.
@@ -240,7 +239,7 @@ Description: Error: Not Found
 
 Description: Internal Service Error.
 
-## DELETE A SINGLE GOAL
+## /goals/delete: DELETE A SINGLE GOAL
 
 ### METHOD: DELETE
 
@@ -310,15 +309,12 @@ Example
   ]
 }
 ```
-
 ###### CODE 400
 
 Description: Bad Request
-
 ##### CODE 401
 
 Description: Unauthorized
-
 ##### CODE 404
 
 Description: Error Not found
@@ -347,3 +343,200 @@ Description: Error Not found
 ##### CODE 500
 
 Description: Internal Server Error.
+
+
+## /sidebar GET USER SIDEBAR
+
+### METHOD: GET
+
+#### Description
+
+This endpoint get all the user sidebar for a particular organization.
+
+#### Parameters
+
+- org: An org_id of string datatype is to be provided to get user sidebar.
+
+Example
+```sh
+200
+```
+
+- user: A user_id string is also needed to get all user sidebar.
+
+Example
+
+```sh
+613fa4a56173056af01b4b26
+```
+
+### Responses
+
+Curl
+
+```sh
+curl -X 'GET' \
+  'https://goals.zuri.chat/api/v1/sidebar?org=200&user=613fa4a56173056af01b4b26' \
+  -H 'accept: application/json'
+```
+
+Request URL
+
+```sh
+https://goals.zuri.chat/api/v1/sidebar?org=200&user=613fa4a56173056af01b4b26
+```
+#### CODE 200
+
+- Details: Success
+- Media type: application/json
+
+
+```sh
+{
+  "status": "200",
+  "message": "success",
+  "data": [
+    {
+      "_id": "613ddbd3e4010959c8dc0c5e",
+      "category": "#backend",
+      "createdBy": "Depeju",
+      "description": "test goal",
+      "start_date": "2020-10-02",
+      "due_date": "2020-10-02",
+      "goal_type": "annual",
+      "goal_name": "public room",
+      "isComplete": true,
+      "isExpired": true,
+      "room_id": "b66e5fe5-2c66-413c-b2fc-a38d6ab76330"
+    }
+  ]
+}
+```
+
+#### CODE 400
+
+Details: Bad request
+
+#### CODE 401
+
+Details: Unauthorized
+
+#### CODE 404
+
+Details Not found
+
+#### CODE 500
+
+Details: Internal Server Error
+
+## ASSIGN A SINGLE GOAL
+
+### METHOD: POST
+
+#### parameters
+
+- org_id: A string is to be provided to assign a single goal.
+
+example
+```sh
+200
+```
+
+- room_id: Is also to be provided
+
+example
+
+```sh
+613fa4a56173056af01b4b26
+```
+
+- user_id: This as a string is Also to be provided 
+
+example
+
+```sh
+613fa4a56173056af01b4b26
+```
+
+#### Response
+
+##### curl
+```sh
+curl -X 'POST' \
+  'https://goals.zuri.chat/api/v1/goals/assign?org_id=200&room_id=613fa4a56173056af01b4b26&user_id=613fa4a56173056af01b4b26' \
+  -H 'accept: application/json' \
+  -d ''
+```
+
+##### Request URL
+
+```sh
+https://goals.zuri.chat/api/v1/goals/assign?org_id=200&room_id=613fa4a56173056af01b4b26&user_id=613fa4a56173056af01b4b26
+```
+
+##### Server response
+
+###### CODE 200
+
+- Details: success
+- Media type: application/json
+
+```sh
+{
+  "status": "200",
+  "message": "success",
+  "data": [
+    {
+      "_id": "613ddbd3e4010959c8dc0c5e",
+      "category": "#backend",
+      "createdBy": "Depeju",
+      "description": "test goal",
+      "start_date": "2020-10-02",
+      "due_date": "2020-10-02",
+      "goal_type": "annual",
+      "goal_name": "public room",
+      "isComplete": true,
+      "isExpired": true,
+      "room_id": "b66e5fe5-2c66-413c-b2fc-a38d6ab76330"
+    }
+  ]
+}
+```
+
+###### CODE 400
+
+- Details: Bad request
+
+###### CODE 401
+
+- Details: Unauthorized
+
+###### CODE 404
+
+- Details: Not found
+
+###### CODE 500
+
+- Details: Error:Internal Server Error
+
+Response body
+
+```sh
+{
+  "status": "error",
+  "message": "Something went very wrong!"
+}
+```
+
+Response header
+
+```sh
+ connection: keep-alive 
+ content-length: 57 
+ content-type: application/json; charset=utf-8 
+ date: Sat,25 Sep 2021 00:03:40 GMT 
+ etag: W/"39-Ud0i4g07D442gAT71XHbRDcWC10" 
+ server: nginx/1.18.0 (Ubuntu) 
+ vary: Origin,Accept-Encoding 
+ x-powered-by: Express 
+```
